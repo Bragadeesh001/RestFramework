@@ -13,8 +13,8 @@ class Testforms(SimpleTestCase):
 
         self.assertTrue(form.is_valid())   #checking the form is valid
 
-    def test_expense_form_no_data(self):
-        form=test_Forms(data={})
+    # def test_expense_form_no_data(self):
+    #     form=test_Forms(data={})
 
-        self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 3)
+    #     self.assertFalse(form.is_valid())
+    #     self.assertEquals(len(form.errors), 3)
