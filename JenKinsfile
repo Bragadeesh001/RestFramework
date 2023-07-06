@@ -16,7 +16,7 @@ pipeline {
                 pip install django
                 pip install djangorestframework
                 pip uninstall psycopg2-binary
-                pip instakk psycopg2
+                pip install psycopg2
                 '''
             }
         }
