@@ -13,6 +13,8 @@ pipeline {
                 echo "Building.."
                 sh '''
                 pip install fire
+                pip install django
+                pip install djangorestframework
                 '''
             }
         }
@@ -22,6 +24,8 @@ pipeline {
                 sh '''
                 python3 hello.py
                 python3 hello.py --name=Braga
+                cd todo_App
+                python3 manage.py runserver
                 '''
             }
         }
