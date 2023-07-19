@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'todo_App.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'retfulapiDB',
+        'NAME': 'todo_database',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'todo-database.cnvqi0i8ap1v.ap-south-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
