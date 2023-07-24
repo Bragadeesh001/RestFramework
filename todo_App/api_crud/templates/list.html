@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Operations using REST Framework</title>
+  <style>
+    /* Add CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #333;
+      background-color: #f1f1f1;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav a:hover {
+      background-color: #ddd;
+    }
+
+    .list, .detail {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CRUD Operations using REST Framework</h1>
+  </header>
+
+  <div class="container">
+    <div class="nav">
+      <button class="btn-list" onclick="showOptions('list')">List</button>
+      <button class="btn-detail" onclick="showOptions('detail')">Detail</button>
+      <button class="btn-update" onclick="showOptions('update')">Update</button>
+      <button class="btn-delete" onclick="showOptions('delete')">Delete</button>
+    </div>
+
+    <div class="list active">
+      <h2>Task List</h2>
+      <form id="taskDetailForm" method="post" action="{% url 'task-detail' %}">
+        {% csrf_token %}
+        <ul>
+          {% for task in det %}
+            <li>{{ task.id }}. {{ task.title }} <input type="radio" name="option" value="{{ task.id }}"> <label for="{{ task.id }}"></label></li>
+          {% endfor %}
+        </ul>
+        <button type="submit">Show Details</button>
+      </form>
+    </div>
+
+    <div class="detail">
+      <h2>Task Details</h2>
+      <ul>
+        {% if pk is not None and task_detail is not None %}
+          <li>{{ task_detail.id }}. {{ task_detail.title }} - {{ task_detail.completed }}</li>
+          <form method="post" action="{% url 'task-update' pk=task_detail.id %}">
+            {% csrf_token %}
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{ task_detail.title }}">
+            <br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description">{{ task_detail.description }}</textarea>
+            <br>
+            <button type="submit">Update</button>
+          </form>
+        {% else %}
+          <br>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function showOptions(option) {
+      const allSections = document.querySelectorAll('.list, .detail, .update, .delete');
+      allSections.forEach(section => section.classList.remove('active'));
+
+      const activeSection = document.querySelector(`.${option}`);
+      activeSection.classList.add('active');
+    }
+  </script>
+</body>
+</html>
