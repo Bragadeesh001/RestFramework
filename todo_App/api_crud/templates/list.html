@@ -75,7 +75,7 @@
       <button class="btn-delete" onclick="showOptions('delete')">Delete</button>
     </div>
 
-    <div class="list active">
+    <div class="btn-list">
       <h2>Task List</h2>
       <form id="taskDetailForm" method="post" action="{% url 'task-detail' %}">
         {% csrf_token %}
