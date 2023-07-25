@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crud operation using Restframework</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0; /* Optional, removes the default padding for the list */
+            margin: 0; /* Optional, removes the default margin for the list */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Crud operation using Restframework</h1>
+    </header>
+    <div>
+        <a href="{% url 'task-list' %}"><button id="list-btn">List</button></a>
+        <a href="{% url 'task-detail' %}"><button id="view-btn">View</button></a>
+        <a href="{% url 'task-create' %}"><button id="view-btn">Create</button></a>
+        <a href="{% url 'task-update' %}"><button id="view-btn">Update</button></a>
+        <button id="delete-btn">Delete</button>
+    </div>
+
+    <div id="Home">
+        {% if not data.items %}
+        {% else %}
+            <h2>List of Tasks</h2>
+            <ul>
+                {% for key, item in data.items %}
+                    <li>{{ key }} - {{ item }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </div>
+
+    <div id="list">
+        {% if not tasks %}
+        {% else %}    
+            <h2>List of Entries</h2>
+            <ul>
+                {% for task in tasks %}
+                    <li>{{ task.id }}. {{ task.title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div id="View">
+        {% if not detail %}
+        {% else %}
+        <h2>List of Entries</h2>
+            <ul>
+                <form id="task-form" action="{% url 'task-detail' %}" method="post">
+                {% for details in detail %}
+                    <input type="radio" name="pk" value="{{ details.id }}" > {{ details.title }} <br>
+                {% endfor %}
+                <button type="submit">View</button>
+                </form>
+        {% endif %}
+        {% if not pk %}
+        {% else %}
+            <h2>List of Entries</h2>
+            <ul>
+                <li>{{ id }}. {{ title }}   -   {{ status }}</li>
+            </ul>
+        {% endif %}
+    </div>
+    <div id="Create">
+        {% if not is_updat %}
+            <h2>Create Task:</h2>
+            <form id="create-form" action="{% url 'task-create' %}" method="post">
+                <input type="text" name="title" placeholder="Task Name" required>
+                <br>
+                <input type="checkbox" name="completed" id="completed">
+                <label for="completed">Completed</label>
+                <br>
+                <button type="submit">Create Task</button>
+            </form>
+            <h2>{{ crea }}</h2>
+        {% endif %}
+
+    </div>
+    <div id="update">
+        {% if is_updat %}
+
+                        <h2>Update Task:</h2>
+                        <form id="create-form" action="{% url 'task-update' %}" method="post">
+                            <input type="text" name="pk" placeholder="id" required>
+                            <br>
+                            <input type="text" name="title" placeholder="Task Name" required>
+                            <br>
+                            <input type="checkbox" name="completed" id="completed">
+                            <label for="completed">Completed</label>
+                            <br>
+                            <button type="submit">Update Task</button>
+                        </form>
+                        <h2>{{ updat }}</h2>
+
+        {% endif %}
+
+    </div>
+</body>
+</html>
